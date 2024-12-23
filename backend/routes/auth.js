@@ -1,20 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Adjust path to your User model
+const User = require('../models/User'); 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv')
+dotenv.config()
 
-const SECRET_KEY = 'your-secret-key'; // Replace with your secret key
+const SECRET_KEY = process.env.JWT_SECRET; 
 
-// Registration route
+
 router.post('/register', async (req, res) => {
     try {
-        console.log('Request received:', req.body); // Debug request body
+        console.log('Request received:', req.body); 
         const { name, email, password } = req.body;
 
         // Validate input fields
         if (!name || !email || !password) {
-            console.log('Missing fields in request'); // Debug missing fields
+            console.log('Missing fields in request'); 
             return res.status(400).json({ message: 'All fields are required' });
         }
 
