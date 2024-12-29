@@ -13,6 +13,7 @@ function Signup() {
 
     const navigate = useNavigate();
 
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log(name, value);
@@ -36,18 +37,22 @@ function Signup() {
             });
             const result = await response.json();
             const { success, message, error } = result;
-            if (success) {
-                handleSuccess(message);
-                setTimeout(() => {
-                    navigate('/login');
-                }, 1000);
-            } else if (error) {
-                const details = error?.details[0]?.message;
-                handleError(details || message);
-            } else {
-                handleError(message);
-            }
-            console.log(result);
+            if(response.status===201){
+                 handleSuccess(message);
+                 setTimeout(() => {
+                    navigate("/login")
+                        }, 1000);
+               
+            }else if (error) {
+                    const details = error?.details[0]?.message;
+                    handleError(details || message);
+                } else {
+                    handleError(message);
+                }
+            
+           
+            
+            
         } catch (err) {
             handleError(err.message);
         }
